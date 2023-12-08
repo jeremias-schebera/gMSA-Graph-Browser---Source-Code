@@ -1,0 +1,350 @@
+html, body
+{
+    width: 100%;
+    height: 100%;
+    
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.flex-container-row {
+    /*display: flex;
+ 	justify-content: center;
+ 	align-items: stretch;
+ 	align-content: stretch;
+ 	flex-direction: column;*/
+ 	width: 100%;
+    height: 100%;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: flex-start; /* align items in Main Axis */
+    align-items: stretch; /* align items in Cross Axis */
+    align-content: stretch; /* Extra space in Cross Axis */
+ }
+
+.flex-container-column {
+ 	width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: flex-start; /* align items in Main Axis */
+    align-items: stretch; /* align items in Cross Axis */
+    align-content: stretch; /* Extra space in Cross Axis */
+    
+    overflow-y: hidden;
+    overflow-x: hidden;
+ }
+
+ .flex-item {
+ 	padding: 4px;
+ }
+ 
+.flex-item.localAlignmentArea {
+	min-height: 350px;
+	flex: 1 1 auto;
+	position: relative;
+	overflow: hidden;
+	padding: 0;
+}
+
+.collapsed {
+	display: none;
+}
+ 
+ .flex-item.sideNav {
+ 	/*position: fixed;*/
+ 	overflow-y: scroll;
+	overflow-x: scroll;
+	flex: 0 1 auto;
+	min-width: 300px;
+ }
+
+div.toggleCollapse {
+	display: flex;
+	align-items: center;
+ 	justify-content: center;
+}
+
+.flex-item.drawingArea {
+	/*position: absolute;*/
+	flex: 1;
+	padding: 0;
+}  
+
+.msaContainer {
+	top: 0;
+	left: 0;
+	position: absolute;
+	overflow: auto;
+	transform-origin: left top;
+	resize: both;
+	/*border:solid 10px blue;*/
+	/*padding: 5;*/
+}
+
+#tabs-localAlignmentHeadContainer {
+	margin: 0;
+	padding: 0;
+}
+
+#tabs-igvHeadContainer {
+	margin: 0;
+	padding: 0;
+	min-height: 500px;
+}
+
+/*################ MiniMap START ################*/
+
+#miniMapContent {
+	width: 400px;
+	height: 400px;
+}
+
+#miniMapHeader {
+	margin: 0;
+	padding: 10px 0;
+	background: #9b4dca;
+	text-align: center;
+	color: #FFFFFF;
+}
+
+#miniMapContainer {
+	top: 50px;
+	right: calc(100% - 50px);
+	margin: 0;
+	padding: 0px;
+	border: solid 1px #bbb;
+	background: #EDEDED;
+	opacity: 0.8;
+	width: 400px;
+	height: auto;
+	min-height: 50px;
+	position: absolute;
+	left: calc(100% - 450px);
+	top: 50px;
+}
+
+
+/*################ MiniMap END ################*/
+
+/*################ LOADER START ################*/
+
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1001;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #9b4dca;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s;
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#overlay {
+    background-color:#EFEFEF;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    top: 0px;
+    left: 0px;
+    opacity: .5; /* in FireFox */ 
+    filter: alpha(opacity=50); /* in IE */
+}
+
+.hideLoader {
+	display: none;
+}
+
+/*################ LOADER END ################*/
+
+/*################ RESIZAVLE START ################*/
+
+
+.resizer.top-right {
+  right: 10px;
+  top: 10px;
+  cursor: ns-resize;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%; /*magic to turn square into circle*/
+  background: white;
+  border: 3px solid #9b4dca;
+  position: absolute;
+}
+
+/*################ RESIZAVLE END ################*/
+
+/*################ TOOLTIP START ################*/
+
+.close-icon.tooltipCloseButton {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	padding: 2px;
+	height: 20px;
+	text-align: center;
+	width: 20px;
+	margin-left: 20px;
+}
+
+.tooltipButton {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+div.tooltip.miniMap {
+	
+}
+
+div.tooltip.action {
+	height: auto;
+}
+
+div.tooltip.info {
+	height: 400px;
+	padding: 20px;
+}
+
+div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: auto;										
+    padding: 2px;				
+    /*font: 12px sans-serif;		*/
+    background: #535353;	
+    /*color: white;*/
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;	
+    z-index: 200;
+    opacity: 0;
+    overflow: auto;
+    color: #b1bac1;
+}
+
+/*################ TOOLTIP END ################*/
+
+/*################ COLLAPSE BUTTON START ################*/
+
+#toggleCollapseLeft {
+	width: 12px;
+	height: 100px;
+	padding: 0px;
+  	box-sizing: border-box;
+  	border: 0;
+}
+
+#toggleCollapseDown {
+	width: 100px;
+	height: 12px;
+	padding: 0px;
+  	box-sizing: border-box;
+  	border: 0;
+  	vertical-align: baseline;
+  	margin-bottom: 0;
+  	line-height: normal;
+}
+
+/*################ COLLAPSE BUTTON END ################*/
+
+/*################ DELETABLE TEXT INPUT BOX START ################*/
+
+.search-box,.close-icon,.search-wrapper {
+	position: relative;
+	padding: 10px;
+}
+.search-wrapper {
+	margin: auto;
+	/*width: 500px;
+	margin-top: 50px;*/
+}
+.search-box {
+	/*width: 80%;
+	border: 1px solid #ccc;
+  	outline: 0;
+  	border-radius: 15px;*/
+}
+/*.search-box:focus {
+	box-shadow: 0 0 15px 5px #b0e0ee;
+	border: 2px solid #bebede;
+}*/
+.close-icon {
+	/*border:1px solid transparent;
+	background-color: transparent;*/
+	display: inline-block;
+	vertical-align: baseline;
+  	outline: 0;
+  	cursor: pointer;
+}
+.close-icon:after {
+	content: "X";
+	display: block;
+	/*width: 15px;
+	height: 15px;
+	position: absolute;
+	background-color: #FA9595;
+	z-index:1;
+	right: 35px;
+	top: 0;
+	bottom: 0;*/
+	margin: auto;
+	/*padding: 2px;
+	border-radius: 50%;*/
+	text-align: center;
+	/*color: gray;
+	font-weight: normal;
+	font-size: 12px;
+	box-shadow: 0 0 2px #E50F0F;*/
+	cursor: pointer;
+	line-height: normal;
+}
+.search-box:not(:valid) ~ .close-icon {
+	display: none;
+}
+
+/*################ DELETABLE TEXT INPUT BOX END ################*/
+
+
+
