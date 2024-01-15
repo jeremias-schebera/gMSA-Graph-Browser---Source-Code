@@ -944,6 +944,7 @@ cy.collection();*/
 	edgeData = [];
 	arrowData = [];
 	subStructureMap = new Map();
+	d3.select("#checkboxColorAllSequences").property("checked", false);
 	selectedSuperHighlightedItem = "";
 	highlightList = [];
 
@@ -1033,7 +1034,7 @@ function highlightChange(value) {
 }
 
 function createLegend() {
-	let size = 30;
+	let size = 40;
 	
 	let xStart = 20;
 	let yStart = 20;
@@ -1076,7 +1077,7 @@ function createLegend() {
 	    .style("fill", "black")
 	    .text("Legend")
 	    .attr("text-anchor", "left")
-	    .attr("font-size", 30)
+	    .attr("font-size", 40)
 	    .style("alignment-baseline", "middle");
 	    
 	collapseGroup
@@ -1158,7 +1159,7 @@ function createLegend() {
 	    .style("fill", function(d) {return d[1].color;})
 	    .text(function(d){ return d[0]})
 	    .attr("text-anchor", "left")
-	    .attr("font-size", 30)
+	    .attr("font-size", 40)
 	    .style("alignment-baseline", "middle");
 }
 
@@ -1198,9 +1199,10 @@ function fillOrderList(chromosomes) {
 function loadGS() {
 	let startField = document.getElementById("GSstart");
 	let endField = document.getElementById("GSend");
+
 	
 	if (startField.value && endField.value) {
-		if ((startField.value <= startField.max && startField.value >= startField.min) && (endField.value <= endField.max && endField.value >= endField.min)) {
+		if ((parseInt(startField.value) <= parseInt(startField.max) && parseInt(startField.value) >= parseInt(startField.min)) && (parseInt(endField.value) <= parseInt(endField.max) && parseInt(endField.value) >= parseInt(endField.min))) {
 			let message = { "status": "loadGS", "minValue": startField.value, "maxValue": endField.value };
 			creationWebSocket.send(JSON.stringify(message));
 			toggleLoading();
@@ -1453,7 +1455,7 @@ function drawGlyphs() {
 
 function polylineStringDirectionGlyphs() {
 	level = highlightList.length - 1;
-	size = 10;
+	size = vertexData[0].height / (level + 1);
 	
 	for (let i = 0; i <= level; i++) {
 		let subStructureName = highlightList[i];
@@ -1484,7 +1486,11 @@ function polylineStringDirectionGlyphs() {
 			let x = parseFloat(d.x);
 			let y = parseFloat(d.y);
 			let lengthBase = d.width * 0.5 - 2 - size;
-			y = y + (size * (i + 1));
+			if (lengthBase < 0) {
+				lengthBase = 0;
+				size = d.width * 0.5;
+			}
+			y = y + (size * (i));
 		    
 		    //plus-Strand
 		    if (posExists) {

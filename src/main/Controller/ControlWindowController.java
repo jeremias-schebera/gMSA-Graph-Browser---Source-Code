@@ -325,8 +325,10 @@ public class ControlWindowController {
     
     public List<String> loadDBNeo4J(String database){
     	this.database = database;
-    	//For Docker 
+    	//For Docker Prototype
     	driver = GraphDatabase.driver("bolt://neo4j:7687", AuthTokens.basic("jkgs", "testtest"));
+    	//For Docker Only Neo4J
+    	//driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "password"));
     	//For Local Running 
     	//driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("jkgs", "testtest"));
     	n4JGetGenomes();
@@ -947,7 +949,7 @@ public class ControlWindowController {
             	if ((int) params.get("minPos") == -1) {
             		//System.out.println("Special Case");
             		try (Session session = getSession()) {
-                	    org.neo4j.driver.Result result = session.run("MATCH (c:Chromosome {id:$otherChromosomeVertexId})<-[:val]-(e:Edge {position:0})<-[:graphedge]-(v:Vertex)-[:containsBlock]->(block:Block) RETURN v, block ", params);
+            			org.neo4j.driver.Result result = session.run("MATCH (chr:Chromosome {id:$otherChromosomeVertexId}) <-[:isOn]- (s:Sequence)<-[:hasSeq]-(block:Block)<-[:containsBlock]-(v:Vertex) WHERE s.throw = false RETURN v, block ORDER BY s.start LIMIT 1", params);
                 	    n4JStream = result.stream();
                 	    n4JStream.forEachOrdered(this::n4JFillSequence);
                 	}
